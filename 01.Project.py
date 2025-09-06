@@ -61,6 +61,5 @@ else:
                     print(W)
                     #end of years
 
-#floatvala = 1.5
-#b = (int(floatvala))*4
-#print(b)
+
+ 
