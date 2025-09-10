@@ -1,18 +1,13 @@
-import math
-from math import pi
-r=input("Enter the radius of sphere:")
-x1=input("Enter First Latitude:")
-y1=input("Enter First Longitude:")
-x2=input("Enter Second Latitude:")
-y2=input("Enter Second Longitude:")
-R=float(r)
-x=float(x1)
-y=float(y1)
-X=float(x2)
-Y=float(y2)
-r=(R*math.pi)/180
-x1=(x*math.pi)/180
-y1=(y*math.pi)/180
-x2=(X*math.pi)/180
-y2=(Y*math.pi)/180
-print(r)
+
+
+x=float(input("Enter first value: "))
+y=(input("Enter Operator (+,-,/,*): "))
+z=float(input("Enter second number: "))
+
+valid_operators = ["+" , "-" , "/", "*"]
+
+if y not in valid_operators:
+    print("Invalid Operator")
+else:
+    w = x , y , z
+    print(w)
