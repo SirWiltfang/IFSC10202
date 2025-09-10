@@ -1,7 +1,0 @@
-x = input("Enter first variable:")
-y = input("enter second variable:")
-z = input("enter third variable:")
-a = int(x)
-b = int(y)
-c = int(z)
-print(a+b+c)
