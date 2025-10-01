@@ -4,40 +4,38 @@ def merge(input_path, merger_path, output_path):
     merger_o = open(merger_path, 'r')
     outputw = open(output_path, 'w')
 
-    ##########################
-    
     a = 0
-    for line in input_o:
-        a += 1
-    input_o.seek(0) 
-
     b = 0
+    
     for line in merger_o:
         b += 1
     merger_o.seek(0)
     
-    print( a + "input file records")
-    print( b + "merge file records")
-
     ##########################
-
     
-    
-    input_c = input_o.read()
-    merger_c = merger_o.read()
-    
-    x = input_c.find('**')
-    y = input_c.rfind('**') + 2
-    f = input_c.replace(input_c[x:y], merger_c)
+    for line in input_o:
+        if "**Insert Merge File Here**" in line:
+            
+            for m_line in merger_o:
+                outputw.write(m_line.rstrip('\n') + '\n')
+            
+        else:
+            a += 1
+            outputw.write(line.rstrip('\n') + '\n')
 
     ##############################
+    
+    A= str(a)
+    B= str(b)
+    print( A + " input file records")
+    print( B + " merge file records")
 
-    outputw.write(f)
     outputw.close()
     
     outputr = open(output_path, 'r')
     c = len(outputr.readlines())
-    print( c + "output file records")
+    C= str(c)
+    print( C + " output file records")
 
     input_o.close()
     merger_o.close()
