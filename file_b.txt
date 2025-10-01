@@ -1,3 +1,0 @@
-Entry X from File B
-Entry Y from File B
-Entry Z from File B
