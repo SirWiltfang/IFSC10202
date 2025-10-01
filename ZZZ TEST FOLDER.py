@@ -1,8 +1,8 @@
 def merge(input , merger , output):
 
-    input_o = open(input)
-    merger_o = open(merger)
-    outputw = open(output , "w")
+    input_o = open(input_path, 'r')
+    merger_o = open(merger_path, 'r')
+    outputw = open(output_path, 'w')
 
 ##########################
 
@@ -28,6 +28,10 @@ def merge(input , merger , output):
     print(a)
     print(b)
     print(c)
+
+    input_o.close()
+    merger_o.close()
+    outputr.close()
 
 ##################################
 
