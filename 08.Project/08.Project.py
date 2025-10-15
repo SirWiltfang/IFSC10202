@@ -28,7 +28,9 @@ def filesearch(file):
                 if search in line:
 
                     if index > last_printed:
+
                         start_index = index
+
                         while start_index > 0 and FILE_LINES[start_index -1] != "":
                             start_index-=1
                         
@@ -48,7 +50,7 @@ def filesearch(file):
                         
                         for section_num in range(start_index , end_index):
                             line_content = FILE_LINES[section_num]
-                            print("line" , section_num+1 , ":" , line_content)
+                            print("line" , section_num , ":" , line_content)
 
                         print(" ")
 
