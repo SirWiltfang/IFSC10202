@@ -1,54 +1,60 @@
+
 import sys
 
-############################################################################################
+################################################
 
 def filesearch(file):
+
+    with open(file, "r") as openfile:
+        FILE_LINES = [line.rstrip('\n') for line in openfile.readlines()]
+
+    linecount = len(FILE_LINES)
 
     while True:
         search = input("Enter search term:")
 
         if len(search) < 1:
             print("\nNo Search Term Entered\n")
-            sys.exit()
+
         else:
             pass
 
-############################################################################################
+################################################################
 
-        with open(file, "r") as openfile:
-        
-            raw=openfile.readlines()
-            line=[line.strip for line in raw]
-            openfile.seek(0)
-            lineindex=[]
-            wordline=[]
-            linecount=-1
-            
-            for index, line in enumerate(openfile, start = 0):
-                checker = line.find(search)
-                linecount+=1
-                if checker == -1:
-                    pass
-                else:
-                    a = index
-                    b = line
-                    lineindex.append(a)
-                    wordline.append(b)
-                    openfile.seek(0)
-                    
-#NOTE USE .INDEX_FOR_FINDING_THE_SHIT
+            last_printed = -1
+
+            for index, line in enumerate(FILE_LINES):
+                
+                if search in line:
+
+                    if index > last_printed:
+                        start_index = index
+                        while start_index > 0 and FILE_LINES[start_index -1] != "":
+                            start_index-=1
                         
-    
-############################################################################################
-            
+                        if start_index > 0 and FILE_LINES[start_index -1] == "":
+                            start_index -= 1 
 
+#################################
 
+                        end_index = index
 
+                        while end_index < linecount and FILE_LINES[end_index] != "":
+                            end_index+=1
+                        if end_index < linecount:
+                            end_index+=1 
 
-############################################################################################
-            
-            print("line" , lineindex[0] , ":" ,wordline[0])
-            print("line" , lineindex[1] , ":" ,wordline[1])
-      
-            
+#############################################
+                        
+                        for section_num in range(start_index , end_index):
+                            line_content = FILE_LINES[section_num]
+                            print("line" , section_num+1 , ":" , line_content)
+
+                        print(" ")
+
+                        last_printed = end_index -1
+
+                    else:
+                        pass
+
 filesearch('08.Project/constitution.txt')
