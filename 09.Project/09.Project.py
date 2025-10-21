@@ -2,6 +2,8 @@
 import csv
 import sys
 
+#############
+
 def Distances(file):
     data = []
     maxwidth = 0
@@ -9,8 +11,10 @@ def Distances(file):
 ###############################
 
     with open(file, 'r') as openfile:
+
         for line in openfile:
             line = line.strip()
+            
             if not line:
                 continue
 
@@ -57,11 +61,5 @@ def Distances(file):
         
         print(f"{fromsearch} to {tosearch} - {data[firstcoord][secondcoord]} miles")
         
-        
-
-
-
-
-
 
 Distances('09.Project/09.Project Distances.csv')
