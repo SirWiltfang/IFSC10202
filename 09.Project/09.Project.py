@@ -44,16 +44,16 @@ def Distances(file):
         fromsearch = input("Enter From City: ")
         tosearch = input("Enter To City: ")
 
-        fromcitys = data[0][:]
-        tocitys = data[:][0]
+        fromcitys = data[:][0]
+        tocitys = data[0][:]
 
-        if fromsearch in data[0][:]:
+        if fromsearch in data[:][0]:    
             firstcoord = (fromcitys.index(fromsearch))
         else:
             print("\nInvalid From City\n")
             sys.exit()
         
-        if tosearch in data[:][0]:
+        if tosearch in data[0][:]:      
             secondcoord = (tocitys.index(tosearch))
         else:
             print("\nInvalid To City\n")
