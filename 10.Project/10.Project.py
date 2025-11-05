@@ -68,7 +68,7 @@ class Student:
 #MAIN
 
 def Student_scores(filepath):
-    
+
 #####################
 #HEAD
 
