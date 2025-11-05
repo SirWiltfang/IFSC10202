@@ -21,7 +21,6 @@ class Student:
         Scores = []
         for score in self.Grades:
             if score.strip():
-                
                 Scores.append(int(score))
         
         if not Scores:
@@ -45,12 +44,10 @@ class Student:
         
         return total_sum / total_count
     
-
 ##########################################
 #GRADIN
 
     def LetterGrade(self):
-
         average = self.TotalAverage()
 
         if average >= 90:
@@ -80,7 +77,6 @@ def Student_scores(filepath):
 
     print(HEADER)
     
-
 ###############################
 #openfiel
 
@@ -89,8 +85,6 @@ def Student_scores(filepath):
             clean_line = line.strip()
             parts = [p.strip() for p in clean_line.split(',')]
             
-            if len(parts) < 4:
-                continue
             first_name = parts[0]
             last_name = parts[1]
             t_number = parts[2]
@@ -98,7 +92,7 @@ def Student_scores(filepath):
 
             currnet_student = Student(first_name, last_name, t_number, scores)
 
-            running_average = currnet_student.RunningAverages()
+            run_average = currnet_student.RunningAverages()
             total_average = currnet_student.TotalAverage()
             let_grade = currnet_student.LetterGrade()
 
@@ -108,7 +102,7 @@ def Student_scores(filepath):
                     f"{currnet_student.FirstName:>12}"
                     f"{currnet_student.LastName:>12}"
                     f"{currnet_student.TNumber:>12}"
-                    f"{running_average:>12.2f}"
+                    f"{run_average:>12.2f}"
                     f"{total_average:>12.2f}"
                     f"{let_grade:>12}"
                 )
@@ -119,3 +113,4 @@ def Student_scores(filepath):
 if __name__ == "__main__":
     Student_scores(FILEPATH)
 
+    
