@@ -1,12 +1,17 @@
 
 def Grading(file):
-    studentnames = []
-    Grades = []
-    runaverages = []
-    semaverages = []
-
-    with open(file, 'r') as openfile:
+    
+ 
+   
         
+
+
+    class Student:
+        def __init__ (self, firstname, lastname, tnumber, score):
+            self.firstname = firstname
+            self.lastname = lastname
+            self.tnumber = tnumber
+            self.score = score
 
 
 
