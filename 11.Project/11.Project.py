@@ -1,20 +1,15 @@
 import os
 
-FILEPATH = 0
-
-############################################
-
 class Student:
 
-    def __init__ (self, firstname, lastname, tnumber, score):
+    def __init__ (self, firstname, lastname, tnumber, score=None):
         
         self.FirstName = firstname
         self.LastName = lastname
         self.TNumber = tnumber
-        self.Grades = score
+        self.Grades = score if score is not None else [] 
 
-###########################################
-#RUN_AV
+#######################################
 
     def RunningAverages(self):
         Scores = []
@@ -27,24 +22,20 @@ class Student:
         
         return sum(Scores) / len(Scores)
     
-#########################################
-#SEM_AV
+#######################################
 
     def TotalAverage(self):
-        total_sum = 0
-        total_count = len(self.Grades)
-
+        Scores = []
         for score in self.Grades:
             if score.strip():
-                total_sum += int(score)
+                Scores.append(int(score))
 
-        if total_count == 0:
+        if not Scores:
             return 0
         
-        return total_sum / total_count
+        return sum(Scores) / len(Scores) 
     
-##########################################
-#GRADIN
+#######################################
 
     def LetterGrade(self):
         average = self.TotalAverage()
@@ -59,30 +50,5 @@ class Student:
             return "D"
         else:
             return "F"
-
-########################################################
-
-class StudentList: 
-    
-    def __init__ (self):
-        self.Studentlist = []
-
-#################################
-
-    def add_student(self):
-        newstudent = Student(firstname, lastname, tnumber)
-        self.Studentlist.append(newstudent)
-
-######################
-
-    def find_student(self, tnumber: str) -> int:
-
-        for index, student in enumerate(self,Studentlist):
-            if student.TNumber == tnumber:
-                return index
-        return -1
-
-###############################33
-
-    def print_student_list(self):
         
+#######################################
