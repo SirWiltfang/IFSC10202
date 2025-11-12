@@ -8,6 +8,7 @@ class Student:
         self.LastName = lastname
         self.TNumber = tnumber
         self.Grades = score if score is not None else [] 
+        self.TotalAssignments = 0 
 
 #######################################
 
@@ -18,22 +19,24 @@ class Student:
                 Scores.append(int(score))
         
         if not Scores:
-            return 0
+            return 0.0
         
         return sum(Scores) / len(Scores)
     
 #######################################
 
     def TotalAverage(self):
-        Scores = []
+        num_assignments = self.TotalAssignments
+        
+        if num_assignments == 0:
+            return 0.0
+
+        total_score = 0
         for score in self.Grades:
             if score.strip():
-                Scores.append(int(score))
+                total_score += int(score)
 
-        if not Scores:
-            return 0
-        
-        return sum(Scores) / len(Scores) 
+        return total_score / num_assignments 
     
 #######################################
 
@@ -57,6 +60,7 @@ class StudentList:
     
     def __init__ (self):
         self.Studentlist = []
+        self.MaxAssignments = 0 
 
 #######################################
 
@@ -85,7 +89,8 @@ class StudentList:
         )
         print(HEADER)
 
-##################3333
+        for student in self.Studentlist:
+            student.TotalAssignments = self.MaxAssignments
 
         for student in self.Studentlist:
             running_avg = student.RunningAverages() 
@@ -106,7 +111,7 @@ class StudentList:
 
     def add_student_from_file(self, filename):
         with open(filename, 'r') as openfile:
-            for line in (openfile):
+            for line in openfile:
                 if not line.strip():
                     continue
 
@@ -114,11 +119,13 @@ class StudentList:
 
                 if len(parts) >= 3:
                     first_name, last_name, t_number = [p.strip() for p in parts[:3]]
-                    self.add_student(first_name, last_name, t_number, None) 
+                    self.add_student(first_name, last_name, t_number, []) 
 
 #######################################
-  
+    
     def add_scores_from_file(self, filename):
+        temp_scores_tracker = {student.TNumber: [] for student in self.Studentlist}
+        
         with open(filename, 'r') as openfile:
             for line in openfile:
                 if not line.strip():
@@ -130,17 +137,29 @@ class StudentList:
                     t_number = parts[0].strip() 
                     score = parts[1].strip()
 
-                    student_index = self.find_student(t_number)
+                    if t_number in temp_scores_tracker:
+                        temp_scores_tracker[t_number].append(score)
 
-                    if student_index != -1:
-                        self.Studentlist[student_index].Grades.append(score) 
+        if not temp_scores_tracker:
+            return
+
+        self.MaxAssignments = max(len(scores) for scores in temp_scores_tracker.values())
+        
+        for student in self.Studentlist:
+            t_number = student.TNumber
+            if t_number in temp_scores_tracker:
+                student.Grades = temp_scores_tracker[t_number]
+            
+            student.TotalAssignments = self.MaxAssignments
+
 
 #######################################
-#mAin
 STUDENTFILE = "11.Project/11.Project Students.txt"
 SCOREFILE = "11.Project/11.Project Scores.txt"
 
+
 def main():
+
     student_list_manager = StudentList()
     student_list_manager.add_student_from_file(STUDENTFILE)
     student_list_manager.add_scores_from_file(SCOREFILE)
