@@ -54,8 +54,8 @@ class Student:
         else:
             return "F"
         
-#######################################
-
+####################################################3####3
+#Second MAin
 class StudentList: 
     
     def __init__ (self):
@@ -152,11 +152,10 @@ class StudentList:
             
             student.TotalAssignments = self.MaxAssignments
 
+#######################################1
 
-#######################################
 STUDENTFILE = "11.Project/11.Project Students.txt"
 SCOREFILE = "11.Project/11.Project Scores.txt"
-
 
 def main():
 
@@ -167,3 +166,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

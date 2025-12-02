@@ -1,12 +1,7 @@
+
+
 import os
 
-VALID_STATES = {
-    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-    'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-    'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-    'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-    'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
-}
 
 class Employee:
     
@@ -20,6 +15,7 @@ class Employee:
         self.State = state
         self.Zip = zip_code
 
+
 class EmployeeList:
     
     
@@ -28,6 +24,8 @@ class EmployeeList:
         self.EmployeeList = []
         self.filename = filename
         self.ReadEmployeeFile()
+
+####################################################
 
     def ReadEmployeeFile(self):
         
@@ -40,7 +38,6 @@ class EmployeeList:
                 for line in openfile:
                     if not line.strip():
                         continue
-
                     
                     parts = [p.strip() for p in line.strip().split(',')]
                     
@@ -58,9 +55,15 @@ class EmployeeList:
         except Exception as e:
             print(f"An error occurred while reading the file: {e}")
 
+####################################################
+
     def WriteEmployeeFile(self):
         
         try:
+            directory = os.path.dirname(self.filename)
+            if directory and not os.path.exists(directory):
+                os.makedirs(directory)
+                
             with open(self.filename, 'w') as outfile:
                 for employee in self.EmployeeList:
                     
@@ -70,12 +73,13 @@ class EmployeeList:
         except Exception as e:
             print(f"An error occurred while saving the file: {e}")
 
+####################################################
+
     def DisplayEmployeeList(self):
         
         if not self.EmployeeList:
             print("\nNo employees to display.")
             return
-
         
         HEADER = (
             f"\n{'Employee':<15}{'First':<15}{'Last':<15}{'Address':<20}{'City':<15}{'State':<10}{'Zip':<10}\n"
@@ -83,7 +87,6 @@ class EmployeeList:
             f"{'-'*15}{'-'*15}{'-'*15}{'-'*20}{'-'*15}{'-'*10}{'-'*10}"
         )
         print(HEADER)
-
         
         for employee in self.EmployeeList:
             output = (
@@ -98,6 +101,8 @@ class EmployeeList:
             print(output)
         print()
 
+####################################################
+
     def ReadEmployee(self, employee_number):
         
         index = self.FindEmployee(employee_number)
@@ -108,6 +113,8 @@ class EmployeeList:
                 employee.Address, employee.City, employee.State, employee.Zip
             )
         return None
+    
+####################################################
 
     def NextEmployeeNumber(self):
         
@@ -118,6 +125,8 @@ class EmployeeList:
         sorted_employees = sorted(self.EmployeeList, key=lambda emp: emp.EmployeeNumber)
         last_number = sorted_employees[-1].EmployeeNumber
         return last_number + 1
+    
+####################################################
 
     def AddEmployee(self, first_name, last_name, address, city, state, zip_code):
         
@@ -129,6 +138,8 @@ class EmployeeList:
         )
         
         self.EmployeeList.append(new_employee)
+
+####################################################
 
     def UpdateEmployee(self, employee_number, first_name, last_name, address, city, state, zip_code):
         
@@ -144,6 +155,8 @@ class EmployeeList:
             employee.Zip = zip_code
             return True
         return False
+    
+#####################################################
 
     def DeleteEmployee(self, employee_number):
         
@@ -153,6 +166,8 @@ class EmployeeList:
             del self.EmployeeList[index]
             return True
         return False
+    
+####################################################
 
     def FindEmployee(self, employee_number):
         
@@ -160,6 +175,8 @@ class EmployeeList:
             if employee.EmployeeNumber == employee_number:
                 return index
         return -1
+    
+##########################
 
 def get_input(prompt, required=True):
     
@@ -169,14 +186,19 @@ def get_input(prompt, required=True):
             print("This field is required. Please enter a value.")
             continue
         return value
+    
+###################################
 
 def validate_state(prompt):
     
     while True:
-        state = input(prompt).strip().upper()
-        if state in VALID_STATES:
+        state = input(prompt).strip()
+        
+        if len(state) == 2 and state.isalpha() and state.isupper():
             return state
-        print("Invalid state. State must be a valid two-letter upper case abbreviation.")
+        print("Invalid state. State must be exactly two capitalized letters (e.g., AR).")
+
+########################################
 
 def validate_zip(prompt):
     
@@ -186,6 +208,8 @@ def validate_zip(prompt):
             return zip_code
         print("Invalid Zip code. Must be 5 numeric digits.")
 
+##############################
+
 def validate_emp_num(prompt):
     
     while True:
@@ -194,6 +218,8 @@ def validate_emp_num(prompt):
             return int(emp_num_str)
         except ValueError:
             print("Invalid input. Employee Number must be an integer.")
+
+##########################
 
 def add_new_employee(employee_list):
     
@@ -210,6 +236,8 @@ def add_new_employee(employee_list):
     employee_list.AddEmployee(first_name, last_name, address, city, state, zip_code)
     print("Employee Added")
 
+############################
+
 def delete_existing_employee(employee_list):
     
     print("\n--- Delete an Existing Employee ---")
@@ -220,6 +248,8 @@ def delete_existing_employee(employee_list):
         print("Employee Deleted")
     else:
         print(f"Error: Employee Number {emp_num} does not exist.")
+
+#########################################
 
 def change_existing_employee(employee_list):
     
@@ -278,7 +308,11 @@ def change_existing_employee(employee_list):
         else:
             print("Invalid selection. Please try again.")
 
-EMPLOYEE_FILE = "Final Project Employees.txt"
+#####################################
+
+EMPLOYEE_FILE = "Final/Final Project Employees.txt"
+
+
 
 def main():
     
@@ -308,3 +342,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
